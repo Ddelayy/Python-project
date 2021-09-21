@@ -1,0 +1,27 @@
+word = list(input('Введите слово: '))
+word_len = len(word)
+life = 5
+i = 0
+star = list(word_len * '*')
+
+while True:
+    letter = input('Введите букву:')
+    if letter in word:
+        print('True')
+        for s in word:
+           # print(s, i)
+            if s == letter:
+               star[i] = letter
+            i += 1
+        i = 0
+        print("".join(star))
+        if star == word:
+            print('Вы выиграли!')
+            break
+    else:
+        print('False')
+        life -= 1
+    print(life)
+    if life == 0:
+        print('Вы проиграли!')
+        break
