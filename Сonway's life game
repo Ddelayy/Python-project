@@ -1,0 +1,60 @@
+import numpy as np
+import random
+a = int(input('Размер поля:'))
+
+array = []
+for i in range(a):
+    array.append([])
+    for j in range(a):
+        array[i].append(random.randint(0,1))
+print(np.array(array))
+
+array_2 = []
+
+for sub_array in array:
+    sub_array = sub_array.copy()
+    array_2.append(sub_array)
+
+array_2 = array
+for k in range(len(array)):
+    for l in range(len(array[k])):
+        neighbour = 0
+        if k == 0 and l == 0:
+            neighbour += array[k][l+1]+array[k+1][l+1] + array[k+1][l]    
+
+        elif k == 0 and l != (len(array[0])-1) and l != 0:            
+            neighbour += array[k+1][l]+array[k+1][l+1]+array[k+1][l-1]+array[k][l-1]+array[k][l+1]
+
+        elif k == 0 and l == (len(array[0])-1):  
+            neighbour += array[k + 1][l - 1]+array[k][l-1]+array[k+1][l]
+
+        elif k != 0 and k !=(len(array)-1) and l == 0:
+            neighbour += array[k][l+1]+array[k+1][l+1]+array[k+1][l]+array[k-1][l]+array[k-1][l+1]
+
+        elif k == (len(array)-1) and l !=(len(array[0])-1) and l == 0:   
+            neighbour += array[k-1][l]+ array[k-1][l+1]+array [k-1][l-1]
+
+        elif k!=0 and k != (len(array)-1) and l!=0 and l !=(len(array[0])-1):  
+            neighbour +=array[k-1][l]+array[k-1][l+1]+array[k-1][l-1]+array[k][l-1]+array[k+1][l-1]+array[k+1][l+1]+array[k+1][l]+array[k][l+1]
+
+        elif k != 0 and k == (len(array)-1) and l == 0  and l != (len(array[0])-1):
+            neighbour += array[k-1][l] + array[k-1][l+1] + array [k][l+1]
+
+        elif k == (len(array)-1) and l!=0 and l !=(len(array[0])-1):  
+            neighbour += array[k][l-1]+array[k-1][l]+array[k-1][l+1]+array[k-1][l-1]+array[k][l+1]
+
+        elif k == (len(array)-1) and l == (len(array[0])-1): 
+            neighbour+= array[k][l-1] + array[k-1][l-1]+array[k-1][l]
+
+        elif k != 0 and k != (len(array)-1) and l == (len(array[0])-1): 
+            neighbour +=array[k-1][l]+array[k-1][l-1]+array[k][l-1]+array[k+1][l-1]+array[k+1][l]
+        
+        if array[k][l] == 1:
+            if neighbour not in [2,3]:
+                array_2[k][l] = 0
+
+        if array[k][l] == 0:
+            if neighbour == 3:
+                array_2[k][l] = 1
+
+print('\n',(np.array(array_2)))
